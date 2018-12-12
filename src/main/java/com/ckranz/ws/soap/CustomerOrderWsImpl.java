@@ -40,9 +40,19 @@ public class CustomerOrderWsImpl implements CustomerOrdersPortType {
 	}
 
 	@Override
-	public GetOrdersResponse getOrders(GetOrdersRequest parameters) {
-		// TODO Auto-generated method stub
-		return null;
+	public GetOrdersResponse getOrders(GetOrdersRequest request) {
+		//get customer id as sent in the request
+		BigInteger customerId = request.getCustomerId();
+		//create obj "orders that contains a list of orders from HashMap for this customer id 
+		List<Order> orders = customerOrders.get(customerId);
+		
+		//create new instance of response stub to answer the request
+		GetOrdersResponse response = new GetOrdersResponse();
+		//seltsam aber der einzige weg, da es keine set-methode gibt (siehe in Beschreibung in der Klasse)
+		response.getOrder().addAll(orders);
+		
+		//return the list of all orders of customer with id customer id
+		return response;
 	}
 
 	@Override

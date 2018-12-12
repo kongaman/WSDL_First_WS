@@ -3,6 +3,7 @@ package com.ckranz.ws.soap;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import org.apache.cxf.feature.Features;
 import com.bharath.ws.trainings.CreateOrdersRequest;
 import com.bharath.ws.trainings.CreateOrdersResponse;
 import com.bharath.ws.trainings.CustomerOrdersPortType;
+import com.bharath.ws.trainings.DeleteOrdersRequest;
+import com.bharath.ws.trainings.DeleteOrdersResponse;
 import com.bharath.ws.trainings.GetOrdersRequest;
 import com.bharath.ws.trainings.GetOrdersResponse;
 import com.bharath.ws.trainings.Order;
@@ -70,6 +73,25 @@ public class CustomerOrderWsImpl implements CustomerOrdersPortType {
 		
 		//create new instance of response stub to answer the request with boolean
 		CreateOrdersResponse response = new CreateOrdersResponse();
+		response.setResult(true);
+		
+		return response;
+	}
+
+	@Override
+	public DeleteOrdersResponse deleteOrders(DeleteOrdersRequest request) {
+		BigInteger customerId = request.getCustomerId();
+		BigInteger orderId = request.getOrderId();
+		
+		List<Order> orders = customerOrders.get(customerId);
+		for (Iterator<Order> iter = orders.listIterator(); iter.hasNext(); ) {
+			Order o = iter.next();
+			if(o.getId() == orderId) {
+				iter.remove();
+			}
+		}
+		
+		DeleteOrdersResponse response = new DeleteOrdersResponse();
 		response.setResult(true);
 		
 		return response;

@@ -39,6 +39,23 @@
 					type="tns:order" />
 			</xs:sequence>
 		</xs:complexType>
+		
+		<xs:element name="deleteOrdersRequest" type="tns:deleteOrdersRequest" />
+
+		<xs:element name="deleteOrdersResponse" type="tns:deleteOrdersResponse" />
+
+		<xs:complexType name="deleteOrdersRequest">
+			<xs:sequence>
+				<xs:element name="customerId" type="xs:integer" />
+				<xs:element name="orderId" type="xs:integer" />
+			</xs:sequence>
+		</xs:complexType>
+
+		<xs:complexType name="deleteOrdersResponse">
+			<xs:sequence>
+				<xs:element name="result" type="xs:boolean" />
+			</xs:sequence>
+		</xs:complexType>
 
 		<xs:element name="createOrdersRequest" type="tns:createOrdersRequest" />
 
@@ -77,6 +94,15 @@
 		<wsdl:part element="tns:createOrdersResponse" name="parameters">
 		</wsdl:part>
 	</wsdl:message>
+	
+	<wsdl:message name="deleteOrdersRequest">
+		<wsdl:part element="tns:deleteOrdersRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteOrdersResponse">
+		<wsdl:part element="tns:deleteOrdersResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
 
 	<wsdl:portType name="CustomerOrdersPortType">
 		<wsdl:operation name="getOrders">
@@ -89,6 +115,12 @@
 			<wsdl:input message="tns:createOrdersRequest" name="createOrdersRequest">
 			</wsdl:input>
 			<wsdl:output message="tns:createOrdersResponse" name="createOrdersResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteOrders">
+			<wsdl:input message="tns:deleteOrdersRequest" name="deleteOrdersRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:deleteOrdersResponse" name="deleteOrdersResponse">
 			</wsdl:output>
 		</wsdl:operation>
 	</wsdl:portType>
@@ -112,6 +144,15 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 			<wsdl:output name="createOrdersResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteOrders">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="deleteOrdersRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="deleteOrdersResponse">
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>

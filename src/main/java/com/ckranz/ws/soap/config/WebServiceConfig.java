@@ -19,6 +19,7 @@ public class WebServiceConfig {
 	@Bean
 	public Endpoint endpoint() {
 		EndpointImpl endpoint = new EndpointImpl(bus, new CustomerOrderWsImpl());
+		//url of the service
 		endpoint.publish("/customerordersservice");
 		return endpoint;
 	}
